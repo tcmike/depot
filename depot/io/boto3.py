@@ -229,6 +229,7 @@ class S3Storage(FileStorage):
 
 
 def _check_file_id(file_id):
+    pass
     # Check that the given file id is valid, this also
     # prevents unsafe paths.
     # try:
