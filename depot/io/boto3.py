@@ -192,6 +192,8 @@ class S3Storage(FileStorage):
     def create(self, content, filename=None, content_type=None):
         content, filename, content_type = self.fileinfo(content, filename, content_type)
         new_file_id = str(uuid.uuid1())
+        if filename:
+            new_file_id = new_file_id + "/" + filename.replace(" ", "_")
         key = self._bucket_driver.new_key(new_file_id)
         self.__save_file(key, content, filename, content_type)
         return new_file_id
