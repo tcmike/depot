@@ -231,7 +231,7 @@ class S3Storage(FileStorage):
 def _check_file_id(file_id):
     # Check that the given file id is valid, this also
     # prevents unsafe paths.
-    try:
-        uuid.UUID('{%s}' % file_id)
-    except:
-        raise ValueError('Invalid file id %s' % file_id)
+    # try:
+    #     uuid.UUID('{%s}' % file_id)
+    # except:
+    #     raise ValueError('Invalid file id %s' % file_id)
