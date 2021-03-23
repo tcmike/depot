@@ -203,7 +203,7 @@ class S3Storage(FileStorage):
         new_file_id = str(uuid.uuid1())
         if filename:
             if base_id:
-                new_file_id = base_id + "/" + filename.replace(" ", "_")
+                new_file_id = base_id.split("/")[0] + "/" + filename.replace(" ", "_")
             else:
                 new_file_id = new_file_id + "/" + filename.replace(" ", "_")
         key = self._bucket_driver.new_key(new_file_id)
