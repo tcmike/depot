@@ -204,7 +204,7 @@ class S3Storage(FileStorage):
         if filename:
             if base_id:
                 new_file_id = base_id + "/" + filename.replace(" ", "_")
-            else
+            else:
                 new_file_id = new_file_id + "/" + filename.replace(" ", "_")
         key = self._bucket_driver.new_key(new_file_id)
         self.__save_file(key, content, filename, content_type)
