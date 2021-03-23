@@ -160,6 +160,15 @@ class FileStorage(with_metaclass(ABCMeta, object)):
         parameters are not provided they are deducted from the content itself.
         """
         return
+    
+    def create_related(self, content, filename=None, content_type=None, base_id=None):  # pragma: no cover
+        """Saves a new file in folder of base file and returns the ID of the newly created file.
+
+        ``content`` parameter can either be ``bytes``, another ``file object``
+        or a :class:`cgi.FieldStorage`. When ``filename`` and ``content_type``
+        parameters are not provided they are deducted from the content itself.
+        """
+        return
 
     @abstractmethod
     def replace(self, file_or_id, content, filename=None, content_type=None):  # pragma: no cover
