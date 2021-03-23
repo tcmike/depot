@@ -45,7 +45,7 @@ class UploadedFile(DepotFileInfo):
         self['_public_url'] = saved_file.public_url
 
     def store_content(self, content, filename=None, content_type=None):
-        file_id = self.depot.create_related(content, filename, content_type, self.file_id)
+        file_id = self.depot.create_related(content, filename, content_type, self['file_id'])
         file_path = '%s/%s' % (self.depot_name, file_id)
         self.files.append(file_path)
         return file_path, file_id
