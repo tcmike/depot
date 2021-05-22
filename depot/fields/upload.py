@@ -2,6 +2,13 @@ from depot.manager import DepotManager
 from .interfaces import DepotFileInfo
 import json
 
+class UploadedThumbFile():
+    def __init__(self, file):
+        self.file = file
+    
+    def set_thumb_sizes(self, thumb_sizes):
+        self.thumb_sizes = thumb_sizes
+        
 
 class UploadedFile(DepotFileInfo):
     """Simple :class:`depot.fields.interfaces.DepotFileInfo` implementation that stores files.
@@ -34,7 +41,16 @@ class UploadedFile(DepotFileInfo):
         set of attributes is provided.
         """
 
-        file_path, file_id = self.store_content(content, filename, content_type)
+        target_content = content
+        thumb_sizes = [(100, 100), (300, 300)]
+
+        if isinstance(target_content, UploadedThumbFile):
+            if target_content.thumb_sizes is not None:
+                if len(target_content.thumb_sizes) > 0:
+                    thumb_sizes = target_content.thumb_sizes
+            target_content = target_content.file
+
+        file_path, file_id = self.store_content(target_content, filename, content_type)
         self['file_id'] = file_id
         self['path'] = file_path
 
@@ -43,7 +59,7 @@ class UploadedFile(DepotFileInfo):
         self['content_type'] = saved_file.content_type
         self['uploaded_at'] = saved_file.last_modified.strftime('%Y-%m-%d %H:%M:%S')
         self['_public_url'] = saved_file.public_url
-        # self['thumb_sizes'] = content['thumb_sizes']
+        self['thumb_sizes'] = thumb_sizes
 
     def store_content(self, content, filename=None, content_type=None):
         file_id = self.depot.create(content, filename, content_type)
