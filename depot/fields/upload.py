@@ -3,6 +3,8 @@ from .interfaces import DepotFileInfo
 import json
 
 class UploadedThumbFile():
+    crop_to_size = False
+
     def __init__(self, file):
         self.file = file
     
