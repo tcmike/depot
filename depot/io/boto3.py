@@ -7,6 +7,7 @@ This is useful for storing files in S3.
 from __future__ import absolute_import
 
 from datetime import datetime
+import time
 import uuid
 import boto3
 from botocore.exceptions import ClientError
@@ -189,9 +190,16 @@ class S3Storage(FileStorage):
                 raise TypeError('Only bytes can be stored, not unicode')
             key.put(Body=content, **attrs)
 
+    def short_uuid(self):
+        uuid1 = uuid.uuid1()
+        short_base = uuid1.split('-')[0]
+        sec = (str(time.time()).split('.'))[1]
+        return short_base+sec
+
+
     def create(self, content, filename=None, content_type=None):
         content, filename, content_type = self.fileinfo(content, filename, content_type)
-        new_file_id = str(uuid.uuid1())
+        new_file_id = str(self.short_uuid())
         if filename:
             new_file_id = new_file_id + "/" + filename.replace(" ", "_")
         key = self._bucket_driver.new_key(new_file_id)
