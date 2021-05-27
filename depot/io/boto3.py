@@ -191,7 +191,7 @@ class S3Storage(FileStorage):
             key.put(Body=content, **attrs)
 
     def short_uuid(self):
-        uuid1 = uuid.uuid1()
+        uuid1 = str(uuid.uuid1())
         short_base = uuid1.split('-')[0]
         sec = (str(time.time()).split('.'))[1]
         return short_base+sec
