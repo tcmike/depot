@@ -5,11 +5,14 @@ import json
 class UploadedThumbFile():
     crop_to_size = False
 
-    def __init__(self, file):
+    def __init__(self, file, filename=None):
         self.file = file
+        self.filename = filename
     
     def set_thumb_sizes(self, thumb_sizes):
         self.thumb_sizes = thumb_sizes
+
+    
         
 
 class UploadedFile(DepotFileInfo):
@@ -45,8 +48,9 @@ class UploadedFile(DepotFileInfo):
 
         target_content = content
         thumb_sizes = [(100, 100), (300, 300)]
-
         if isinstance(target_content, UploadedThumbFile):
+            if filename is None:
+                filename = target_content.filename
             if target_content.thumb_sizes is not None:
                 if len(target_content.thumb_sizes) > 0:
                     thumb_sizes = target_content.thumb_sizes
