@@ -8,6 +8,7 @@ class UploadedThumbFile():
     def __init__(self, file, filename=None):
         self.file = file
         self.filename = filename
+        self.thumb_sizes = None
     
     def set_thumb_sizes(self, thumb_sizes):
         self.thumb_sizes = thumb_sizes
